@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 
-import profilePic from './assets/profile.jpg'
-import faslhPic from './assets/flash.jpg'
-import intheloopPic from './assets/intheloop.jpg'
-import codePic from './assets/code.jpg'
+import profilePic from './assets/Profile.jpg'
+import faslhPic from './assets/Flash.jpg'
+import intheloopPic from './assets/Intheloop.jpg'
+import codePic from './assets/Code.jpg'
 
 const projects = [
   { number: '01', type: 'Mobile UI', title: 'Faslh Express', image: faslhPic },
