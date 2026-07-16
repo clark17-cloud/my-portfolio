@@ -25,7 +25,7 @@ const reveal = {
   transition: { duration: 0.7, ease: 'easeOut' },
 }
 
-function GalaxyCanvas({ unleashed }) {
+function GalaxyCanvas() {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -77,7 +77,7 @@ function GalaxyCanvas({ unleashed }) {
       context.fillRect(0, 0, width, height)
 
       particles.forEach((particle) => {
-        const angle = particle.angle + time * particle.speed * (unleashed ? 2.6 : 1)
+        const angle = particle.angle + time * particle.speed
         const x = centerX + Math.cos(angle) * particle.distance * 1.25
         const y = centerY + Math.sin(angle) * particle.distance * 0.42
         context.fillStyle = `rgba(245, 243, 238, ${particle.alpha})`
@@ -95,14 +95,13 @@ function GalaxyCanvas({ unleashed }) {
       window.removeEventListener('resize', resize)
       window.removeEventListener('pointermove', onMove)
     }
-  }, [unleashed])
+  }, [])
 
   return <canvas ref={canvasRef} className="absolute inset-0 h-full w-full opacity-80" aria-hidden="true" />
 }
 
 export default function App() {
   const [sent, setSent] = useState(false)
-  const [unleashed, setUnleashed] = useState(false)
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -114,7 +113,7 @@ export default function App() {
     <main className="min-h-screen overflow-hidden bg-[#080808] text-[#f2f0eb] selection:bg-[#f2f0eb] selection:text-black">
       <div className="pointer-events-none fixed inset-0 opacity-70 [background-image:radial-gradient(circle_at_20%_15%,rgba(255,255,255,.13)_0,transparent_1px),radial-gradient(circle_at_72%_28%,rgba(255,255,255,.09)_0,transparent_1px),radial-gradient(circle_at_45%_78%,rgba(255,255,255,.12)_0,transparent_1px)] [background-size:190px_190px,260px_260px,320px_320px]" />
 
-      <header className="relative z-10 flex items-center justify-between px-5 py-5 text-[10px] uppercase tracking-[0.2em] md:px-10">
+      <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between bg-[#080808]/95 px-5 py-5 text-[10px] uppercase tracking-[0.2em] md:px-10">
         <a href="#top" className="font-semibold tracking-[0.14em]">Julian Clark</a>
         <nav className="flex gap-5 text-white/55 md:gap-8">
           <a className="transition hover:text-white" href="#work">Work</a>
@@ -124,18 +123,18 @@ export default function App() {
       </header>
 
       <section id="top" className="relative z-10 flex min-h-[calc(100vh-64px)] flex-col items-center justify-center overflow-hidden px-5 text-center">
-        <GalaxyCanvas unleashed={unleashed} />
-        <motion.p {...reveal} className="relative mb-6 text-[10px] uppercase tracking-[0.32em] text-white/55">UI/UX Designer · Philippines </motion.p>
+        <GalaxyCanvas />
+        <motion.p {...reveal} className="relative mb-6 text-[10px] uppercase tracking-[0.32em] text-white/55">UI/UX Designer</motion.p>
         <motion.h1 {...reveal} transition={{ duration: 0.9, ease: 'easeOut', delay: 0.1 }} className="relative max-w-5xl text-[16vw] font-light leading-[0.78] tracking-[-0.09em] md:text-[11vw]">
-          Galaxy<br />of Structures
+          Orbiting<br />Ideas
         </motion.h1>
-        <motion.div {...reveal} transition={{ duration: 0.7, delay: 0.25 }} className="relative mt-10 flex w-full max-w-5xl items-end justify-between border-t border-white/20 pt-4 text-left text-[10px] uppercase tracking-[0.18em] text-white/60">
+        <motion.div {...reveal} transition={{ duration: 0.7, delay: 0.25 }} className="relative mt-10 flex w-full max-w-5xl items-end pt-4 text-left text-[10px] uppercase tracking-[0.18em] text-white/60">
           <span>Digital experiences<br />& visual identity</span>
-          <div className="flex flex-col items-end gap-3 text-right"><button onClick={() => setUnleashed((value) => !value)} className="cursor-pointer text-white transition hover:text-white/60">{unleashed ? 'Galaxy unleashed' : 'Click to unleash'}<br />the galaxy</button><a href="#work" className="text-white/60 transition hover:text-white">Scroll ↓</a></div>
+          <a href="#work" className="absolute left-1/2 top-4 -translate-x-1/2 text-center text-white/60 transition hover:text-white">Scroll to explore<br />↓</a>
         </motion.div>
       </section>
 
-      <section id="work" className="relative z-10 border-t border-white/15 px-5 py-24 md:px-10 md:py-32">
+      <section id="work" className="relative z-10 px-5 py-24 md:px-10 md:py-32">
         <motion.div {...reveal} className="mb-14 flex items-end justify-between">
           <div>
             <p className="mb-3 text-[10px] uppercase tracking-[0.25em] text-white/50">Selected work</p>
@@ -159,12 +158,12 @@ export default function App() {
         </div>
       </section>
 
-      <section id="about" className="relative z-10 border-t border-white/15 px-5 py-24 md:px-10 md:py-32">
+      <section id="about" className="relative z-10 px-5 py-24 md:px-10 md:py-32">
         <div className="mx-auto grid max-w-6xl gap-14 md:grid-cols-[0.8fr_1.2fr] md:gap-24">
           <motion.div {...reveal}>
             <p className="mb-3 text-[10px] uppercase tracking-[0.25em] text-white/50">About me & principle</p>
             <h2 className="text-5xl font-light leading-none tracking-[-0.07em] md:text-7xl">Designed<br />with intent.</h2>
-            <img src={profilePic} alt="Julian Clark" className="mt-10 aspect-square w-full max-w-sm object-cover grayscale" />
+            <img src={profilePic} alt="Julian Clark" className="mt-10 aspect-square w-full max-w-sm object-cover" />
           </motion.div>
           <motion.div {...reveal} transition={{ duration: 0.7, delay: 0.12 }} className="pt-1">
             <p className="max-w-xl text-xl font-light leading-relaxed text-white/80 md:text-2xl">I’m Julian Clark, a UI/UX designer creating thoughtful interfaces and visual identities that feel modern, useful, and memorable.</p>
@@ -175,7 +174,7 @@ export default function App() {
         </div>
       </section>
 
-      <section id="contact" className="relative z-10 border-t border-white/15 px-5 py-24 md:px-10 md:py-32">
+      <section id="contact" className="relative z-10 px-5 py-24 md:px-10 md:py-32">
         <motion.div {...reveal} className="mx-auto max-w-3xl">
           <p className="mb-3 text-[10px] uppercase tracking-[0.25em] text-white/50">Contact & connect</p>
           <h2 className="max-w-2xl text-5xl font-light leading-[0.9] tracking-[-0.07em] md:text-7xl">Let’s build something clear and meaningful.</h2>
@@ -185,12 +184,20 @@ export default function App() {
             <textarea required aria-label="Message" placeholder="Message" rows="3" className="resize-none border-b border-white/25 bg-transparent py-4 text-lg outline-none placeholder:text-white/40 focus:border-white" />
             <button className="mt-2 flex w-fit items-center gap-8 border border-white px-5 py-3 text-[10px] uppercase tracking-[0.2em] transition hover:bg-white hover:text-black">{sent ? 'Message ready' : 'Send message'} <span>↗</span></button>
           </form>
-          <p className="mt-8 text-sm text-white/50">Or email me directly at <a className="text-white underline-offset-4 hover:underline" href="mailto:Julianzclarkz@gmail.com">Julianzclarkz@gmail.com</a>.</p>
+          <div className="mt-8 flex flex-col gap-5 text-sm text-white/50 sm:flex-row sm:items-center sm:justify-between">
+            <p>Or email me directly at <a className="text-white underline-offset-4 hover:underline" href="mailto:Julianzclarkz@gmail.com">Julianzclarkz@gmail.com</a>.</p>
+            <div className="flex flex-wrap gap-x-5 gap-y-2 text-[10px] uppercase tracking-[0.16em]">
+              <a className="text-white/70 transition hover:text-white" href="https://github.com/clark17-cloud" target="_blank" rel="noreferrer">GitHub ↗</a>
+              <a className="text-white/70 transition hover:text-white" href="https://www.facebook.com/julianclarkk" target="_blank" rel="noreferrer">Facebook ↗</a>
+              <a className="text-white/70 transition hover:text-white" href="https://www.linkedin.com/in/julian-clark-ibarra-33a2a0409" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+              <a className="text-white/70 transition hover:text-white" href="https://www.facebook.com/julianclarkk" target="_blank" rel="noreferrer">Messenger ↗</a>
+            </div>
+          </div>
         </motion.div>
       </section>
 
-      <footer className="relative z-10 flex flex-col gap-3 border-t border-white/15 px-5 py-6 text-[10px] uppercase tracking-[0.18em] text-white/45 md:flex-row md:items-center md:justify-between md:px-10">
-        <span>© 2026 Julian Clark</span><span>UI/UX Portfolio · Davao City, Philippines</span>
+      <footer className="relative z-10 flex flex-col gap-3 px-5 py-6 text-[10px] uppercase tracking-[0.18em] text-white/45 md:flex-row md:items-center md:justify-between md:px-10">
+        <span>© 2026 Julian Clark</span><span>UI/UX Portfolio</span>
       </footer>
     </main>
   )
